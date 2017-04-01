@@ -1,8 +1,9 @@
 from google.cloud import bigquery
 from pprint import pprint
+import sys
 
-
-client = bigquery.Client()
+project_name = sys.argv[1]
+client = bigquery.Client(project_name)
 
 
 def cleanup():
@@ -11,8 +12,6 @@ def cleanup():
     for dataset in datasets:
         tables = dataset.list_tables()
 
-        pprint(tables)
-
         for table in tables:
             table.delete()
 
@@ -20,11 +19,49 @@ def cleanup():
 
 
 def create_datasets():
-    pass
+    dataset_names = [
+        'property_1',
+        'property_2',
+    ]
+
+    for dataset_name in dataset_names:
+        dataset = client.dataset(dataset_name)
+
+        dataset.create()
 
 
 def create_input_tables():
-    pass
+    table_names = [
+        'day_1',
+        'day_2',
+    ]
+
+    datasets = client.list_datasets()
+
+    for dataset in datasets:
+        for table_name in table_names:
+            table = dataset.table(
+                table_name,
+                [bigquery.SchemaField('column_1', 'STRING')],
+            )
+
+            table.create()
+
+            query_table_name = \
+                dataset.dataset_id.replace(':', '.') + \
+                '.' + \
+                table_name
+
+            values = '("A value"), ("A second value"), ("A third value")'
+
+            query = client.run_sync_query(
+                'INSERT INTO `%s` (`column_1`) VALUES %s' % (query_table_name, values)
+            )
+
+            query.use_legacy_sql = False
+
+            query.run()
+
 
 
 def create_output_table():
@@ -33,6 +70,9 @@ def create_output_table():
 
 def main():
     cleanup()
+    create_datasets()
+    create_input_tables()
+    create_output_table()
 
 main()
 
