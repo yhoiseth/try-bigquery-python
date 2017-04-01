@@ -18,16 +18,19 @@ def cleanup():
         dataset.delete()
 
 
-def create_datasets():
+def create_input_datasets():
     dataset_names = [
         'property_1',
         'property_2',
     ]
 
     for dataset_name in dataset_names:
-        dataset = client.dataset(dataset_name)
+        create_dataset(dataset_name)
 
-        dataset.create()
+
+def create_dataset(name):
+    dataset = client.dataset(name)
+    dataset.create()
 
 
 def create_input_tables():
@@ -63,6 +66,9 @@ def create_input_tables():
             query.run()
 
 
+def create_output_dataset():
+    create_dataset('output')
+
 
 def create_output_table():
     pass
@@ -70,8 +76,9 @@ def create_output_table():
 
 def main():
     cleanup()
-    create_datasets()
+    create_input_datasets()
     create_input_tables()
+    create_output_dataset()
     create_output_table()
 
 main()
