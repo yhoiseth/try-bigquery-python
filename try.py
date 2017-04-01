@@ -8,8 +8,6 @@ client = bigquery.Client()
 def cleanup():
     datasets = client.list_datasets()
 
-    # pprint(datasets)
-
     for dataset in datasets:
         tables = dataset.list_tables()
 
@@ -19,9 +17,6 @@ def cleanup():
             table.delete()
 
         dataset.delete()
-
-
-    # bigquery_client.dataset('').delete()
 
 
 def create_datasets():
@@ -36,8 +31,10 @@ def create_output_table():
     pass
 
 
+def main():
+    cleanup()
 
-
+main()
 
 
 
@@ -105,10 +102,7 @@ def create_output_table():
 # pprint(dir(table))
 
 
-def main():
-    cleanup()
 
-main()
 
 
 
