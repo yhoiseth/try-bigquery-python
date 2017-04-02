@@ -11,6 +11,6 @@ This is the process almost from scratch, assuming you're on a Mac and have insta
 6. Activate your virtual environment: `source ~/.virtualenvs/try-bigquery-python/bin/activate`
 7. Clone the repository: `git clone git@github.com:yhoiseth/try-bigquery-python.git`
 8. Navigate into the project: `cd try-bigquery-python`
-9. Install the required packages: `pip install -r requirements.txt`
+9. Install the required packages: `pip install --upgrade pip setuptools wheel virtualenv && pip install -r requirements.txt`
 
 To _deactivate_ (exit) your virtual environment, use the `deactivate` command.
