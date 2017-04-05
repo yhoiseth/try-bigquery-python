@@ -6,7 +6,7 @@ def get_table_names(number_of_days):
 
     today = datetime.date.today()
 
-    for index in range(0, number_of_days):
+    for index in range(1, number_of_days + 1):
         day = today - datetime.timedelta(index)
 
         table_names.append(
