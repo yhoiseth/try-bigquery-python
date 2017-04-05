@@ -12,14 +12,14 @@ class TestTableUtilities(unittest.TestCase):
         two_days_ago = yesterday - one_day
         three_days_ago = two_days_ago - one_day
 
-        format = '%Y%m%d'
+        date_format = '%Y%m%d'
 
         prefix = 'ga_sessions_'
 
         expected_table_names = [
-            prefix + yesterday.strftime(format),
-            prefix + two_days_ago.strftime(format),
-            prefix + three_days_ago.strftime(format),
+            prefix + yesterday.strftime(date_format),
+            prefix + two_days_ago.strftime(date_format),
+            prefix + three_days_ago.strftime(date_format),
         ]
 
         actual_table_names = tableutilities.get_table_names(3)
