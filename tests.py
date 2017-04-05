@@ -3,6 +3,7 @@ from datetime import date
 from datetime import timedelta
 import tableutilities
 
+
 class TestTableUtilities(unittest.TestCase):
     def test_get_table_names(self):
         today = date.today()
@@ -11,11 +12,9 @@ class TestTableUtilities(unittest.TestCase):
         two_days_ago = yesterday - one_day
         three_days_ago = two_days_ago - one_day
 
-        format = '%Y%M%D'
+        format = '%Y%m%d'
 
         prefix = 'ga_sessions_'
-
-
 
         expected_table_names = [
             prefix + today.strftime(format),
@@ -24,10 +23,12 @@ class TestTableUtilities(unittest.TestCase):
             prefix + three_days_ago.strftime(format),
         ]
 
-        self.assertEqual(
-            expected_table_names, tableutilities.get_table_names(4)
-        )
+        actual_table_names = tableutilities.get_table_names(4)
 
+        self.assertEqual(4, len(actual_table_names))
+        self.assertEqual(
+            expected_table_names, actual_table_names
+        )
 
 if __name__ == '__main__':
     unittest.main()
