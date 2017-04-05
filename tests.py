@@ -17,15 +17,14 @@ class TestTableUtilities(unittest.TestCase):
         prefix = 'ga_sessions_'
 
         expected_table_names = [
-            prefix + today.strftime(format),
             prefix + yesterday.strftime(format),
             prefix + two_days_ago.strftime(format),
             prefix + three_days_ago.strftime(format),
         ]
 
-        actual_table_names = tableutilities.get_table_names(4)
+        actual_table_names = tableutilities.get_table_names(3)
 
-        self.assertEqual(4, len(actual_table_names))
+        self.assertEqual(3, len(actual_table_names))
         self.assertEqual(
             expected_table_names, actual_table_names
         )
